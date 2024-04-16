@@ -1,9 +1,12 @@
 const express=require("express");
 const {loginVerification}=require("./types.js")
 const {connectDB}=require('./db/index.js')
+const {User}=require("./model/usermodel.js")
 const app=express();
-app.use(express.json());
 
+
+
+app.use(express.json());
 
 
 //Home page Route:::
@@ -17,7 +20,7 @@ app.get("/",(req,res)=>{
 
 
 //Login page Route:::
-app.post("/login",(req,res)=>{
+app.post("/login",async (req,res)=>{
     const userPayload=req.body;
     const parsedPayload= loginVerification.safeParse(userPayload);
     if(!parsedPayload.success){
@@ -27,8 +30,14 @@ app.post("/login",(req,res)=>{
         return;
     }
     else{
-        res.json({
-            mssg:"Everything is fine!!"
+        console.log(parsedPayload);
+        await User.create([{
+            email:parsedPayload.data.email,
+            username:parsedPayload.data.username,
+            password:parsedPayload.data.password,
+        }])
+        res.status(200).json({
+            mssg:"Collection created successfully!!"
         })
     }
 })

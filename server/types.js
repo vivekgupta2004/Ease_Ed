@@ -1,9 +1,14 @@
 const zod=require("zod");
 
+
+
 const loginVerification=zod.object({
-    name:zod.string(),
-    email:zod.string().min(1,{message:"This need to be filled!!"}).email()
+    username:zod.string(),
+    email:zod.string().min(1,{message:"This need to be filled!!"}).email(),
+    password:zod.string()
 })
+
+
 module.exports={
     loginVerification:loginVerification
 }
