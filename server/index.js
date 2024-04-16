@@ -1,5 +1,6 @@
 const express=require("express");
 const {loginVerification}=require("./types.js")
+const {connectDB}=require('./db/index.js')
 const app=express();
 app.use(express.json());
 
@@ -34,9 +35,13 @@ app.post("/login",(req,res)=>{
 
 
 
-
-
-
-app.listen(3000,()=>{
-    console.log("Server is UP!!");
+connectDB()
+.then(()=>{
+    app.listen(3000,()=>{
+        console.log("Server is UP!!");
+    })
 })
+.catch((e)=>{
+    console.log("DB connection failed!!");
+})
+
