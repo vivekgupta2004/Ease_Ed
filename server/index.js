@@ -1,7 +1,8 @@
 const express=require("express");
-const {loginVerification}=require("./types.js")
+const {loginVerification, superLoginVerification}=require("./types.js")
 const {connectDB}=require('./db/index.js')
 const {User}=require("./model/usermodel.js")
+const {SuperUser}=require("./model/usermodel.js")
 const app=express();
 
 
@@ -30,11 +31,34 @@ app.post("/login",async (req,res)=>{
         return;
     }
     else{
-        console.log(parsedPayload);
+        
         await User.create([{
             email:parsedPayload.data.email,
             username:parsedPayload.data.username,
             password:parsedPayload.data.password,
+        }])
+        res.status(200).json({
+            mssg:"Collection created successfully!!"
+        })
+    }
+})
+
+app.post("/loginsuperuser", async(req,res)=>{
+    const userPayload=req.body;
+    const parsedPayload= superLoginVerification.safeParse(userPayload);
+    if(!parsedPayload.success){
+        res.json({
+            mssg:"Entered something wrong!!"
+        })
+        return;
+    }
+    else{
+        
+        await SuperUser.create([{
+            email:parsedPayload.data.email,
+            username:parsedPayload.data.username,
+            password:parsedPayload.data.password,
+           
         }])
         res.status(200).json({
             mssg:"Collection created successfully!!"
