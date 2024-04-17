@@ -1,8 +1,9 @@
 const express=require("express");
-const {loginVerification, superLoginVerification}=require("./types.js")
+const {loginVerification, superLoginVerification, addClassVerification}=require("./types.js")
 const {connectDB}=require('./db/index.js')
 const {User}=require("./model/usermodel.js")
-const {SuperUser}=require("./model/usermodel.js")
+const {SuperUser, AddClass}=require("./model/usermodel.js")
+
 const app=express();
 
 
@@ -43,28 +44,71 @@ app.post("/login",async (req,res)=>{
     }
 })
 
+
+
+
+
+
 app.post("/loginsuperuser", async(req,res)=>{
     const userPayload=req.body;
     const parsedPayload= superLoginVerification.safeParse(userPayload);
     if(!parsedPayload.success){
         res.json({
-            mssg:"Entered something wrong!!"
+            mssg:"Entered something wrong superlogin!!"
         })
         return;
     }
     else{
-        
-        await SuperUser.create([{
-            email:parsedPayload.data.email,
-            username:parsedPayload.data.username,
-            password:parsedPayload.data.password,
-           
-        }])
+        const finding=await SuperUser.find({
+            email:parsedPayload.data.email
+        })
+        if(finding.length){
+            console.log("User already exist!!");
+        }
+        else{
+            console.log("User Created successfull!!")
+            await SuperUser.create([{
+                email:parsedPayload.data.email,
+                username:parsedPayload.data.username,
+                password:parsedPayload.data.password,
+            }])
+        }
         res.status(200).json({
-            mssg:"Collection created successfully!!"
+            mssg:"Collection created successfully for superlogin!!"
         })
     }
 })
+
+
+
+
+app.post("/addClass",async(req,res)=>{
+    const addClassPayload=req.body;
+    const addClassParsedPayload=addClassVerification.safeParse(addClassPayload);
+    
+    console.log(addClassParsedPayload);
+    if(!addClassParsedPayload.success){
+        res.json({
+            mssg:"Entered something wrong addclass!!"
+        })
+        return;
+    }
+    else{
+        const classData={
+            className:addClassParsedPayload.data.className,
+            accessGrant:addClassParsedPayload.data.accessGrant
+        }
+        console.log(classData);
+        await SuperUser.updateOne({email:addClassParsedPayload.data.email},{classes:classData})
+        res.status(200).json({
+            mssg:"Collection created successfully for add class!!"
+        })
+    }
+    
+
+
+})
+
 
 
 

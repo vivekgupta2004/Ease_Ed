@@ -7,6 +7,10 @@ const loginVerification=zod.object({
     email:zod.string().min(1,{message:"This need to be filled!!"}).email(),
     password:zod.string()
 })
+
+
+
+
 const superLoginVerification = zod.object({
     username:zod.string(),
     email:zod.string().min(1,{message:"This need to be filled!!"}).email(),
@@ -16,7 +20,18 @@ const superLoginVerification = zod.object({
 
 })
 
+const elementSchema=zod.string();
+
+const addClassVerification=zod.object({
+    className:zod.string(),
+    email:zod.string().min(1,{message:"This need to be filled!!"}).email(),
+    accessGrant:zod.array(elementSchema)
+})
+
+
+
 module.exports={
     loginVerification:loginVerification,
-    superLoginVerification
+    superLoginVerification,
+    addClassVerification
 }
