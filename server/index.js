@@ -97,21 +97,34 @@ app.post("/addClass",async(req,res)=>{
     else{
 
         const classId=uuidv4();
+        const dumyData={
+            0:"Go to Gym!!",
+            1:"Go to Hell!!",
+            2:"Go to Hell!!",
+            3:"Go to Hell!!",
+            4:"Go to Hell!!",
+            5:"Go to Hell!!",
+            6:"Go to Hell!!"
+        }
         console.log(classId);
         const classData={
             className:addClassParsedPayload.data.className,
             accessGrant:addClassParsedPayload.data.accessGrant,
-            classid:classId
+            classid:classId,
+            classtimetable:dumyData
         }
         await SuperUser.updateOne({email:addClassParsedPayload.data.email},{$set: {classes:{classData}}})
         res.status(200).json({
             mssg:"Collection created successfully for add class!!"
         })
+
     }
     
 
 
 })
+
+
 
 
 
