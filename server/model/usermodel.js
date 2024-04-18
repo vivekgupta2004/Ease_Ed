@@ -48,7 +48,7 @@ const superUserSchema = new mongoose.Schema({
         default: true
     },
     classes:{
-        type:Object,
+        type:Array,
         default:null
     }
 

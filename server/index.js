@@ -4,7 +4,6 @@ const {connectDB}=require('./db/index.js')
 const {User}=require("./model/usermodel.js")
 const { v4: uuidv4 } = require('uuid');
 const {SuperUser, AddClass}=require("./model/usermodel.js")
-
 const app=express();
 
 
@@ -107,13 +106,14 @@ app.post("/addClass",async(req,res)=>{
             6:"Go to Hell!!"
         }
         console.log(classId);
+        
         const classData={
             className:addClassParsedPayload.data.className,
             accessGrant:addClassParsedPayload.data.accessGrant,
             classid:classId,
             classtimetable:dumyData
         }
-        await SuperUser.updateOne({email:addClassParsedPayload.data.email},{$set: {classes:{classData}}})
+        await SuperUser.updateOne({email:addClassParsedPayload.data.email},{$push: {classes:classData}})
         res.status(200).json({
             mssg:"Collection created successfully for add class!!"
         })
