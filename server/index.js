@@ -2,6 +2,7 @@ const express=require("express");
 const {loginVerification, superLoginVerification, addClassVerification}=require("./types.js")
 const {connectDB}=require('./db/index.js')
 const {User}=require("./model/usermodel.js")
+const { v4: uuidv4 } = require('uuid');
 const {SuperUser, AddClass}=require("./model/usermodel.js")
 
 const app=express();
@@ -94,12 +95,15 @@ app.post("/addClass",async(req,res)=>{
         return;
     }
     else{
+
+        const classId=uuidv4();
+        console.log(classId);
         const classData={
             className:addClassParsedPayload.data.className,
-            accessGrant:addClassParsedPayload.data.accessGrant
+            accessGrant:addClassParsedPayload.data.accessGrant,
+            classid:classId
         }
-        console.log(classData);
-        await SuperUser.updateOne({email:addClassParsedPayload.data.email},{classes:classData})
+        await SuperUser.updateOne({email:addClassParsedPayload.data.email},{$set: {classes:{classData}}})
         res.status(200).json({
             mssg:"Collection created successfully for add class!!"
         })

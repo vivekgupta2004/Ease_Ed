@@ -52,7 +52,6 @@ const superUserSchema = new mongoose.Schema({
         default:null
     }
 
-
 }, {
     timestamps: true
 })
