@@ -19,8 +19,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-
-
+    classTimeTable:{
+        type:Object,
+        default:null
+    }
 }, {
     timestamps: true
 })

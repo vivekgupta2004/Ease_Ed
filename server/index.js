@@ -97,13 +97,34 @@ app.post("/addClass",async(req,res)=>{
 
         const classId=uuidv4();
         const dumyData={
-            0:"Go to Gym!!",
-            1:"Go to Hell!!",
-            2:"Go to Hell!!",
-            3:"Go to Hell!!",
-            4:"Go to Hell!!",
-            5:"Go to Hell!!",
-            6:"Go to Hell!!"
+            0:{
+                title:"Go to Gym!!",
+                status:0
+            }, 
+            1:{
+                title:"Go to Gym!!",
+                status:0
+            }, 
+            2:{
+                title:"Go to Gym!!",
+                status:0
+            }, 
+            3:{
+                title:"Go to Gym!!",
+                status:0
+            }, 
+            4:{
+                title:"Go to Gym!!",
+                status:0
+            }, 
+            5:{
+                title:"Go to Gym!!",
+                status:0
+            }, 
+            6:{
+                title:"Go to Gym!!",
+                status:0
+            },
         }
         console.log(classId);
         
@@ -126,7 +147,22 @@ app.post("/addClass",async(req,res)=>{
 
 
 
+app.post("/enrollclass",async (req,res)=>{
+    const payloadclassid=req.body.classid;
+    const payloademail=req.body.email;
+    const temp=await SuperUser.findOne({"classes.classid":payloadclassid});
+    const timetableobj=(temp.classes).map((c)=>{
+        if(c.classid==payloadclassid){
+            return c.classtimetable;
+        }
+    })
+    console.log(timetableobj);
 
+    await User.updateOne({email:payloademail},{classTimeTable:timetableobj[0]});
+    res.json({
+        mssg:"Enrolled successfully!! time table added to a particular student database!!"
+    })
+})
 
 
 connectDB()
