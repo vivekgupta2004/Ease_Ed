@@ -175,6 +175,14 @@ app.post("/enrollclass",async (req,res)=>{
 })
 
 
+
+app.post("/userupdatestatus", async (req,res)=>{
+    const buttonId = req.body.buttonid;
+    const studentToken = req.headers.token;
+   const temp= User.findOne({token:studentToken}, {classTimeTable})
+   console.log(temp);
+})
+ 
 connectDB()
 .then(()=>{
     app.listen(3000,()=>{
