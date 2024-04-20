@@ -178,13 +178,14 @@ app.post("/enrollclass",async (req,res)=>{
 
 app.post("/userupdatestatus", async (req,res)=>{
     const buttonId = req.body.buttonid;
-    console.log(buttonId);
     const studentToken = req.headers.token;
     console.log(studentToken)
-   const temp=await User.findOne({token:studentToken})
-   console.log(temp);
+   let temp=await User.find({token:studentToken})
+   const toBeUpdatedClassTimeTable=(temp[0].classTimeTable);
+   (toBeUpdatedClassTimeTable[`${buttonId}`].status)=1;
+   await User.updateOne({token:studentToken},{classTimeTable:temp[0].classTimeTable})
    res.json({
-    mssg:"Document found!!"
+    mssg:"Updated!!"
    })
 })
  
