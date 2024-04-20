@@ -35,7 +35,7 @@ app.post("/login",async (req,res)=>{
     }
     else{
         const token= jwt.sign({email:parsedPayload.data.email},"shhhh");
-
+        console.log(token);
         const options={
             expires:new Date(Date.now() +3*24*60*60*1000),
             httpOnly:true
@@ -178,9 +178,14 @@ app.post("/enrollclass",async (req,res)=>{
 
 app.post("/userupdatestatus", async (req,res)=>{
     const buttonId = req.body.buttonid;
+    console.log(buttonId);
     const studentToken = req.headers.token;
-   const temp= User.findOne({token:studentToken}, {classTimeTable})
+    console.log(studentToken)
+   const temp=await User.findOne({token:studentToken})
    console.log(temp);
+   res.json({
+    mssg:"Document found!!"
+   })
 })
  
 connectDB()
