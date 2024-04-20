@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
     classTimeTable:{
         type:Object,
         default:null
+    },
+    token:{
+        type:String,
+        default:null
     }
 }, {
     timestamps: true

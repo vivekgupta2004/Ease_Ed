@@ -4,9 +4,11 @@ const {connectDB}=require('./db/index.js')
 const {User}=require("./model/usermodel.js")
 const { v4: uuidv4 } = require('uuid');
 const {SuperUser, AddClass}=require("./model/usermodel.js")
+const jwt=require("jsonwebtoken")
+const cookieparser=require("cookie-parser");
 const app=express();
 
-
+app.use(cookieparser());
 
 app.use(express.json());
 
@@ -32,14 +34,22 @@ app.post("/login",async (req,res)=>{
         return;
     }
     else{
-        
+        const token= jwt.sign({email:parsedPayload.data.email},"shhhh");
+
+        const options={
+            expires:new Date(Date.now() +3*24*60*60*1000),
+            httpOnly:true
+        }
         await User.create([{
             email:parsedPayload.data.email,
             username:parsedPayload.data.username,
             password:parsedPayload.data.password,
+            token:token
         }])
-        res.status(200).json({
-            mssg:"Collection created successfully!!"
+        res.status(200).cookie("token",token,options).json({
+            mssg:"Collection created successfully!!",
+            success:true,
+            token
         })
     }
 })
