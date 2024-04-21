@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {Schema, ObjectId} = require('mongoose');
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -26,6 +27,10 @@ const userSchema = new mongoose.Schema({
     token:{
         type:String,
         default:null
+    },
+    score:{
+        type:Number,
+        default:0
     }
 }, {
     timestamps: true
@@ -56,7 +61,14 @@ const superUserSchema = new mongoose.Schema({
     classes:{
         type:Array,
         default:null
-    }
+    },
+    studentEnrolled:[
+        {
+            type:Schema.Types.ObjectId,
+            ref: 'Studentenrolleds'
+        }
+    ] 
+    
 
 }, {
     timestamps: true

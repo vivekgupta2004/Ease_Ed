@@ -6,6 +6,8 @@ const { v4: uuidv4 } = require('uuid');
 const {SuperUser, AddClass}=require("./model/usermodel.js")
 const jwt=require("jsonwebtoken")
 const cookieparser=require("cookie-parser");
+const studentEnrolledmodel = require("./model/studentEnrolledmodel.js");
+
 const app=express();
 
 app.use(cookieparser());
@@ -187,6 +189,10 @@ app.post("/userupdatestatus", async (req,res)=>{
    res.json({
     mssg:"Updated!!"
    })
+})
+
+app.get('/leaderboard', async(req,res)=>{
+   await studentEnrolledmodel.create()
 })
  
 connectDB()
