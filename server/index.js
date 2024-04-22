@@ -146,7 +146,11 @@ app.post("/addClass",async(req,res)=>{
             classid:classId,
             classtimetable:dumyData
         }
-        await SuperUser.updateOne({email:addClassParsedPayload.data.email},{$push: {classes:classData}})
+        await SuperUser.updateOne({email:addClassParsedPayload.data.email},{$push: {classes:classData}});
+
+        await studentEnrolledmodel.create({
+            classid:classId
+           })
         res.status(200).json({
             mssg:"Collection created successfully for add class!!"
         })
@@ -168,9 +172,19 @@ app.post("/enrollclass",async (req,res)=>{
             return c.classtimetable;
         }
     })
-    console.log(timetableobj);
 
     await User.updateOne({email:payloademail},{classTimeTable:timetableobj[0]});
+
+    await studentEnrolledmodel.updateOne({classid:payloadclassid},{$push:{studentsInThisClass:payloademail}})
+
+    const scoreField={
+        email:payloademail,
+        scoreOfThisStudent:0
+    }
+
+
+    await studentEnrolledmodel.updateOne({classid:payloadclassid},{$push:{score:scoreField}});
+
     res.json({
         mssg:"Enrolled successfully!! time table added to a particular student database!!"
     })
@@ -192,7 +206,7 @@ app.post("/userupdatestatus", async (req,res)=>{
 })
 
 app.get('/leaderboard', async(req,res)=>{
-   await studentEnrolledmodel.create()
+
 })
  
 connectDB()
