@@ -200,6 +200,10 @@ app.post("/userupdatestatus", async (req,res)=>{
    const toBeUpdatedClassTimeTable=(temp[0].classTimeTable);
    (toBeUpdatedClassTimeTable[`${buttonId}`].status)=1;
    await User.updateOne({token:studentToken},{classTimeTable:temp[0].classTimeTable})
+
+
+//Next work is in this route whenever the student want to mark anything done this must send a response to the teacher that work has been uploaded and teacher should send back the response of the number of points that is to be given to the user..
+
    res.json({
     mssg:"Updated!!"
    })
