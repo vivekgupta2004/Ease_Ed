@@ -9,6 +9,7 @@ const cookieparser = require("cookie-parser");
 const studentEnrolledmodel = require("./model/studentEnrolledmodel.js");
 const multer = require('multer')
 const cors = require('cors');
+const path = require('path');
 const { default: mongoose } = require("mongoose");
 const { Files } = require("./model/filemodel.js");
  
@@ -19,7 +20,7 @@ app.use(cookieparser());
 
 app.use(express.json());
 app.use(cors())
-
+app.use('/files', express.static(path.join(__dirname, 'files')));
 
 //Home page Route:::
 app.get("/", (req, res) => {
@@ -216,11 +217,13 @@ app.post("/userupdatestatus", async (req, res) => {
 })
 
 app.get('/leaderboard', async (req, res) => {
-
+    res.json({
+        mssg:"Leaderboard is pending!!"
+    })
 })
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '../client/public/files')
+        cb(null, './files')
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now();
@@ -237,6 +240,15 @@ app.post('/uploadfiles',upload.single('file'), async(req, res) => {
         pdf:fileName
     })
  res.json({mess: "file upload"})
+})
+
+
+
+app.get("/getfiles",async(req,res)=>{
+    const data=await Files.find();
+    res.json({
+        data:data
+    })
 })
 
 connectDB()
