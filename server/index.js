@@ -233,22 +233,33 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 app.post('/uploadfiles',upload.single('file'), async(req, res) => {
-    const title =  req.body.title
-    const fileName = req.file.filename
+    const title =  req.body.title;
+    const fileName = req.file.filename;
+    const token=req.header.token;
     await Files.create({
         title,
-        pdf:fileName
+        pdf:fileName,
+        token:token
     })
  res.json({mess: "file upload"})
 })
 
 
+app.post("/getfiles",async(req,res)=>{
+    const email=req.body.email;
+    const classesTeacherEnrolled= await SuperUser.find({email:email});
 
-app.get("/getfiles",async(req,res)=>{
-    const data=await Files.find();
+    console.log(classesTeacherEnrolled);
+    let classesTeacherEnrolledFinal=(classesTeacherEnrolled[0].classes).map((obj)=>obj.className);
+    console.log(classesTeacherEnrolledFinal)
+
     res.json({
-        data:data
+        mssg:"Classes found",
+        classes:classesTeacherEnrolledFinal
     })
+
+
+
 })
 
 connectDB()

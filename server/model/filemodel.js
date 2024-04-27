@@ -6,6 +6,9 @@ const fileSchema = new mongoose.Schema({
     },
     pdf: {
         type: String,
+    },
+    token:{
+        type:String
     }
 
 },{ timestamps: true })
