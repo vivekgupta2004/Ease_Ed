@@ -262,6 +262,23 @@ app.post("/getfiles",async(req,res)=>{
 
 })
 
+
+
+app.post("/getStudent",async(req,res)=>{
+//class id should be set to a spacific button is click than we should getted backend
+
+const classId = req.body.classId;
+const gotStudent= await studentEnrolledmodel.find({classid:classId});
+
+const gotStudentFinal=gotStudent[0].studentsInThisClass;
+
+
+
+res.json({
+    mssg:"Done!!",
+    gotStudentFinal
+})
+})
 connectDB()
     .then(() => {
         app.listen(3000, () => {
