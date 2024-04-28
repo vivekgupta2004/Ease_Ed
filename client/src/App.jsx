@@ -7,9 +7,9 @@ function App() {
 
 
   return (
-    <>
+    <div className="bg-[#0D0C1A] h-screen">
     <Nav/>
-    </>
+    </div>
   )
 
 }
