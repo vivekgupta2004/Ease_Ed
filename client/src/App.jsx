@@ -7,7 +7,7 @@ function App() {
 
 
   return (
-    <div className="bg-[#0D0C1A] h-screen">
+    <div className="bg-[#0D0C1A] h-screen w-screen">
     <Nav/>
     </div>
   )
