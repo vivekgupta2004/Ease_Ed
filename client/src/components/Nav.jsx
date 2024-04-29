@@ -4,9 +4,9 @@ import { RxCross1 } from "react-icons/rx";
 const Nav = () => {
   let [flag,setFlag]=useState(false);
   return (
-    <div className=''>
-      <div className=" flex justify-center h-20 ">
-        <div className="flex justify-around mt-5 w-5/6 items-center font-bold text-[#C8C0C0] bg-[#141426] rounded-2xl ">
+    <div className='absolute w-screen'>
+      <div className=" flex justify-center h-24 w-screen ">
+        <div className="flex justify-around mt-5  items-center font-bold text-[#C8C0C0] bg-[#141426] rounded-2xl w-4/5">
           <div className="">
             <img src="expmple.png" alt="Logo" />
           </div>
@@ -20,7 +20,7 @@ const Nav = () => {
           </div>
           <div className="flex items-center justify-center">
 
-            <ul className='w-28 h-12 bg-[#15803D] rounded-2xl flex justify-center items-center opacity-0 md:opacity-100'>
+            <ul className='w-52 h-12 border-2 border-solid border-white rounded-2xl flex justify-center items-center opacity-0 md:opacity-100'>
 
               <li className='cursor-pointer '>Login</li>
             </ul>
