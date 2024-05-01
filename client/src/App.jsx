@@ -3,6 +3,7 @@ import axios from 'axios'
 import Nav from "./components/Nav";
 import HeroSection from "./components/HeroSection";
 import About from "./components/About";
+import HowItWork from "./components/HowItWork";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
     <Nav/>
     <HeroSection/>
     <About/>
+    <HowItWork/>
     </div>
   )
 
