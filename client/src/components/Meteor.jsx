@@ -19,7 +19,7 @@ const Meteors = ({ number = 40 }) => {
     }, [number]);
 
     return (
-        <div className="">
+        <div className="z-50">
             {[...meteorStyles].map((style, idx) => (
                 // Meteor Head
                 <span

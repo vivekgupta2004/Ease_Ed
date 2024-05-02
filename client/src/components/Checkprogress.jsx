@@ -10,8 +10,8 @@ const Checkprogress = () => {
 
 
       <div className='h-[70vh] w-[80vw]  absolute '>
-      <div className="relative flex h-full -left-12 top-10 items-center justify-center overflow-hidden rounded-lg border bg-background p-20 md:shadow-xl ">
-      <Meteors number={40} />
+      <div className="relative flex h-full -left-12 top-10 items-center justify-center overflow-hidden rounded-lg  bg-background p-20 md:shadow-xl ">
+      <Meteors number={60} />
     </div>
       </div>
 
