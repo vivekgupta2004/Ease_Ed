@@ -4,10 +4,12 @@ import { ProgressBar } from "react-step-progress-bar";
 
 class App extends React.Component {
   render() {
+
+    const {complition}=this.props;
     return (
       <div className="z-10 rotate-90 mt-[60vh]">
         {/* Your other components and JSX here */}
-        <CustomProgressBar />
+        <CustomProgressBar complition={complition} />
       </div>
     );
   }
@@ -15,9 +17,10 @@ class App extends React.Component {
 
 class CustomProgressBar extends React.Component {
   render() {
+    const {complition}=this.props;
     return (
       <ProgressBar
-        percent={60}
+        percent={complition>0 ? complition : 0 && complition>100 ? 100 : complition}
         filledBackground="#15803D" 
         height="2px"
       />

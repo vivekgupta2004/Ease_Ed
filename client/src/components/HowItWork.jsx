@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import VericalProgress from './VericalProgress'
 
 const HowItWork = () => {
+
+    const [complition,setCompletion]=useState(0);
+
+
+    useEffect(()=>{
+        function updateCompletion(){
+            const currentProgress=window.scrollY;
+            const scrollHeight=Math.floor(currentProgress-1928);
+            if(scrollHeight){
+                setCompletion(
+                    (scrollHeight/15)
+                )
+            }
+        }
+
+
+        window.addEventListener("scroll",updateCompletion);
+    },[complition])
+
     return (
         <>
             <div className='h-[300vh] w-screen text-white p-12 bg-[url("../../public/aboutEllipse.png")]  bg-center bg-cover bg-opacity-10 bg-no-repeat")]'>
@@ -28,15 +47,15 @@ const HowItWork = () => {
                     <div className='h-[27px] w-[27px] rounded-full bg-[#15803D] relative top-[14px] z-10 '></div>
                     <h1 className='text-white inline-block w-1/4 text-3xl font-light'>Verify Class.</h1>
                 </div>
-                <VericalProgress />
-
+                <VericalProgress complition={complition} />
+                
             </div>
 
         </>
     )
 }
+export default HowItWork;
 
-export default HowItWork
 
 
 {/* <div className='h-[27px] w-[27px] rounded-full bg-white relative top-[14px] z-10 '></div> */ }
