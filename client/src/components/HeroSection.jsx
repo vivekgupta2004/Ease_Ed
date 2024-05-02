@@ -2,7 +2,7 @@ import React from 'react'
 
 const HeroSection = () => {
     return (
-        <div className="bg-[url('../../public/heroSection.png')]  w-screen bg-center">
+        <div className="bg-[url('/heroSection.png')]  w-screen bg-center">
             <div className="flex justify-center items-center text-white pt-60 flex-col">
                 <h1 className="text-6xl w-1/2 text-center">Let's Make the future of the Students Bright</h1>
                 <p className='p-5 text-2xl w-1/2 text-center'>It is a long established fact that a reader will be distracted by the readable content of a page when looking at it</p>

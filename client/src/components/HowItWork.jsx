@@ -23,7 +23,7 @@ const HowItWork = () => {
 
     return (
         <>
-            <div className='h-[300vh] w-screen text-white p-12 bg-[url("../../public/aboutEllipse.png")]  bg-center bg-cover bg-opacity-10 bg-no-repeat")]'>
+            <div className='h-[300vh] w-screen text-white p-12 bg-[url("/aboutEllipse.png")]  bg-center bg-cover bg-opacity-10 bg-no-repeat")]'>
                 <h1 className='text-5xl font-light mt-10'>How It Works?</h1>
                 <p className='text-lg w-1/3 mt-4 '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur fugit repellendus quisquam provident quibusdam consequuntur voluptate aliquam amet iure vero.</p>
 
