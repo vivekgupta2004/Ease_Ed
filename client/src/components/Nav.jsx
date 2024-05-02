@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { RxCross1 } from "react-icons/rx";
+import { NavLink, Route, Routes } from 'react-router-dom';
+import Home from './Home';
 const Nav = () => {
   let [flag,setFlag]=useState(false);
   return (
@@ -12,8 +14,8 @@ const Nav = () => {
           </div>
           <div className="">
             <ul className='flex space-x-16 '>
-              <li href='#' className='cursor-pointer hidden md:block'>Home</li>
-              <li href='#' className='cursor-pointer hidden md:block'>LeaderBoard</li>
+              <NavLink to="/" className='cursor-pointer hidden md:block'>Home</NavLink>
+              <NavLink to="/leaderboard" className='cursor-pointer hidden md:block'>LeaderBoard</NavLink>
               <li href='#' className='cursor-pointer hidden md:block'>TimeTable</li>
             </ul>
 
@@ -40,6 +42,7 @@ const Nav = () => {
             </div>
       </div>
     </div>
+
   )
 }
 
