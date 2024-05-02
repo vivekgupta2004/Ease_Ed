@@ -24,7 +24,7 @@ const Nav = () => {
 
             <ul className='w-52 h-12 border-2 border-solid border-white rounded-2xl flex justify-center items-center opacity-0 md:opacity-100'>
 
-              <li className='cursor-pointer '>Login</li>
+              <NavLink to='/signin' className='cursor-pointer '>Login</NavLink>
             </ul>
 
             {flag ? <RxCross1 className='md:hidden text-3xl z-10' onClick={()=>setFlag(prev=>!prev)} />:<RxHamburgerMenu className='md:hidden text-3xl z-10' onClick={()=>setFlag(prev=>!prev)}/>}
