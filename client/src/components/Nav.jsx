@@ -6,7 +6,7 @@ import Home from './Home';
 const Nav = () => {
   let [flag,setFlag]=useState(false);
   return (
-    <div className='absolute w-screen'>
+    <div className='absolute w-screen z-20'>
       <div className=" flex justify-center h-24 w-screen ">
         <div className="flex justify-around mt-5  items-center font-bold text-[#C8C0C0] bg-[#141426] rounded-2xl w-4/5">
           <div className="">
