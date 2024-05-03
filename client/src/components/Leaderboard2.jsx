@@ -2,7 +2,7 @@ import React from 'react'
 import Nav from './Nav'
 import { Footer } from './Footer'
 import { Link } from 'react-router-dom'
-
+import { GoTrophy } from "react-icons/go";
 const Leaderboard2 = () => {
   return (
     <div className=' w-full text-white p-1 -z-20'>
@@ -39,6 +39,43 @@ const Leaderboard2 = () => {
           <h1 className=' w-fit ml-16'>Username</h1>
           </div>
         </div>
+        <div id='detailContainer ' className=' w-[80vw]  mx-auto mb-10' >
+          <div className='w-fit border px-5 py-3  mx-auto rounded-lg flex items-center justify-center gap-5 '>
+          <GoTrophy className='scale-150'/>
+          <h1 className='text-2xl '>You Ranked <b>1</b> out of <b>56</b> Students</h1>
+          </div>
+          <div id='heightContainer' className='w-[79vw]  text-[#8E8DB9] flex justify-around mt-4'>
+            <span>Places</span>
+            <span>Username</span>
+            <span>Points</span>
+            <span>Grade</span>
+          </div>
+          <div id='gradeContainer' className='w-[82vw] h-20 border flex  items-center justify-around rounded-lg mt-4'>
+            <span className='flex gap-1 items-center '><img src="/diamong.png" alt="" className='h-[20px]' />4</span>
+            <span className=''>Sam</span>
+            <span className=''>180</span>
+            <span className='px-7 py-1  border rounded-lg'>B+</span>
+          </div>
+          <div id='gradeContainer' className='w-[82vw] h-20 border flex  items-center justify-around rounded-lg mt-4'>
+            <span className='flex gap-1 items-center '><img src="/diamong.png" alt="" className='h-[20px]' />4</span>
+            <span className=''>Sam</span>
+            <span className=''>180</span>
+            <span className='px-7 py-1  border rounded-lg'>B+</span>
+          </div>
+          <div id='gradeContainer' className='w-[82vw] h-20 border flex  items-center justify-around rounded-lg mt-4'>
+            <span className='flex gap-1 items-center '><img src="/diamong.png" alt="" className='h-[20px]' />4</span>
+            <span className=''>Sam</span>
+            <span className=''>180</span>
+            <span className='px-7 py-1  border rounded-lg'>B+</span>
+          </div>
+          <div id='gradeContainer' className='w-[82vw] h-20 border flex  items-center justify-around rounded-lg mt-4'>
+            <span className='flex gap-1 items-center '><img src="/diamong.png" alt="" className='h-[20px]' />4</span>
+            <span className=''>Sam</span>
+            <span className=''>180</span>
+            <span className='px-7 py-1  border rounded-lg'>B+</span>
+          </div>
+        </div>
+
       </div>
       <Footer />
     </div>
