@@ -16,7 +16,7 @@ const Nav = () => {
             <ul className='flex space-x-16 '>
               <NavLink to="/" className='cursor-pointer hidden md:block'>Home</NavLink>
               <NavLink to="/leaderboard" className='cursor-pointer hidden md:block'>LeaderBoard</NavLink>
-              <li href='#' className='cursor-pointer hidden md:block'>TimeTable</li>
+              <NavLink to='/timetable' className='cursor-pointer hidden md:block'>TimeTable</NavLink>
             </ul>
 
           </div>
