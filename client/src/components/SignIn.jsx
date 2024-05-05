@@ -17,6 +17,7 @@ const SignIn = () => {
             email:email.current.value,
             password:password.current.value
         })
+        console.log("hello",response);
         localStorage.setItem('token', response.data.token)
         window.location.href="/";
     }
@@ -40,7 +41,7 @@ const SignIn = () => {
                     <label className='text-3xl'>Password</label>
                     <input ref={password} placeholder='Enter your Password' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent ' />
 
-                    <button className='border-2 border-solid border-white  w-28 text-2xl rounded-2xl p-2 flex justify-center ' >Sign In</button>
+                    <button className='border-2 border-solid border-white  w-28 text-2xl rounded-2xl p-2 flex justify-center ' type='submit' >Sign In</button>
                 </div>
                 <img src="/signin.png" alt="signin" />
 

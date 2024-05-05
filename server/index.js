@@ -159,7 +159,8 @@ app.post("/addClass", async (req, res) => {
             classid: classId
         })
         res.status(200).json({
-            mssg: "Collection created successfully for add class!!"
+            mssg: "Collection created successfully for add class!!",
+            classId
         })
 
     }
@@ -179,8 +180,8 @@ app.post("/enrollclass", async (req, res) => {
             return c.classtimetable;
         }
     })
-
-    await User.updateOne({ email: payloademail }, { classTimeTable: timetableobj[0] });
+    
+    await User.updateOne({ email: payloademail }, { classTimeTable: timetableobj[5] });
 
     await studentEnrolledmodel.updateOne({ classid: payloadclassid }, { $push: { studentsInThisClass: payloademail } })
 
