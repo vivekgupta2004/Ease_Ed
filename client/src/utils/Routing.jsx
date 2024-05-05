@@ -7,6 +7,8 @@ import SignUp from '../components/SignUp'
 import UploadWork from '../components/UploadWork'
 import Classes from '../components/Classes'
 import Leaderboard2 from '../components/Leaderboard2'
+import SuperUser from '../components/SuperUser'
+import EnrolledClass from '../components/EnrolledClass'
 
 const Routing = () => {
   return (
@@ -19,6 +21,8 @@ const Routing = () => {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/classes' element={<Classes/>} />
         <Route path='/uploadwork' element={<UploadWork/>} />
+        <Route path='/superuser' element={<SuperUser/>} />
+        <Route path='/enrollclass' element={<EnrolledClass/>} />
       </Routes>
     </div>
   )
