@@ -1,11 +1,11 @@
 import React from 'react'
 import { GiCheckMark } from "react-icons/gi";
-const CompletedLeaderboard = () => {
+const CompletedLeaderboard = ({title}) => {
   return (
     <div className='w-full flex gap-64 items-center'>
     <div className='card w-[60%] h-32 rounded-lg bg-[#15803D] flex justify-center py-7 gap-72'>
       <div>
-        <h1 className='text-3xl tracking-wide font-light'>Already Completed Class</h1>
+        <h1 className='text-3xl tracking-wide font-light'>{title}</h1>
         <p className='mt-1 font-semibold ml-1'>Completed</p>
       </div>
       <p className='font-semibold mt-2'>12:00-1:00</p>

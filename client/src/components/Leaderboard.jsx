@@ -9,19 +9,25 @@ import axios from 'axios'
 
 const Leaderboard = () => {
   let values=[];
-  let titleValue=[];
+  let status1=[];
+  let status1Title=[];
+  let status0=[];
+  let status0Title=[];
   const {id}=useParams();
-  const [timeTableToBeRendered,settimeTableToBeRendered]=useState([])
+  const [status1Todo,setStatus1Todo]=useState([]);
+  const [status0Todo,setStatus0Todo]=useState([]);
   useEffect(()=>{
     async function getData(){
       const response= await axios.post("http://localhost:3000/gettimetable",{
         classid:id
       });
-      console.log(response.data.timetable)
       values=Object.values(response.data.timetable);
-      titleValue=values.map((item,index)=>(item.title))
-      console.log(titleValue)
-      settimeTableToBeRendered(titleValue)
+      status1=values.filter((item,index)=>(item.status==1))
+      status1Title=status1.map((item,index)=>(item.title))
+      setStatus1Todo(status1Title);
+      status0=values.filter((item,index)=>(item.status==0))
+      status0Title=status0.map((item,index)=>(item.title))
+      setStatus0Todo(status0Title);
     }
     getData();
   },[])
@@ -47,7 +53,8 @@ const Leaderboard = () => {
             <PendingLeaderboard/>
             <IncompleteLeaderboard/> */}
 
-            {timeTableToBeRendered ? timeTableToBeRendered.map((item,index)=><PendingLeaderboard title={item}/>):<h1>Loading...</h1>}
+            {status0Todo ? status0Todo.map((item,index)=><PendingLeaderboard title={item}/>):<h1>Loading...</h1>}
+            {status1Todo ? status1Todo.map((item,index)=><CompletedLeaderboard title={item}/>):<h1>Loading...</h1>}
           </div>
         </div>
 
