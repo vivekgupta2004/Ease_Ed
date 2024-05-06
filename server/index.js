@@ -204,9 +204,8 @@ app.post("/gettimetable",async(req,res)=>{
     const classid=req.body.classid;
     console.log(classid)
     const gotUser=await User.findOne({email:classid})
-    console.log(gotUser.classTimeTable)
     res.json({
-        mssg:"Check the console!!"
+        timetable:gotUser.classTimeTable
     })
 })
 

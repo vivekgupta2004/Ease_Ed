@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from './Nav'
 import Checkprogress from './Checkprogress'
 import CompletedLeaderboard from './CompletedLeaderboard'
@@ -8,14 +8,20 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const Leaderboard = () => {
+  let values=[];
+  let titleValue=[];
   const {id}=useParams();
-
+  const [timeTableToBeRendered,settimeTableToBeRendered]=useState([])
   useEffect(()=>{
     async function getData(){
       const response= await axios.post("http://localhost:3000/gettimetable",{
         classid:id
       });
-      console.log(response.data);
+      console.log(response.data.timetable)
+      values=Object.values(response.data.timetable);
+      titleValue=values.map((item,index)=>(item.title))
+      console.log(titleValue)
+      settimeTableToBeRendered(titleValue)
     }
     getData();
   },[])
@@ -37,9 +43,11 @@ const Leaderboard = () => {
           </div>
 
           <div id="parentContainer" className='w-full h-fit flex items-center justify-center gap-10 flex-col p-5'>
-            <CompletedLeaderboard/>
+            {/* <CompletedLeaderboard/>
             <PendingLeaderboard/>
-            <IncompleteLeaderboard/>
+            <IncompleteLeaderboard/> */}
+
+            {timeTableToBeRendered ? timeTableToBeRendered.map((item,index)=><PendingLeaderboard title={item}/>):<h1>Loading...</h1>}
           </div>
         </div>
 
