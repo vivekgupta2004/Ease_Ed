@@ -2,11 +2,12 @@ import React, { useRef } from 'react'
 import { Footer } from './Footer'
 import Nav from './Nav'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const EnrolledClass = () => {
     const email = useRef(null);
     const classid = useRef(null);
-
+    const navigate=useNavigate();
 
 
     const handleSubmit=async (e)=>{
@@ -16,6 +17,9 @@ const EnrolledClass = () => {
         classid:classid.current.value
       })
       console.log(response.data);
+      
+      navigate(`/leaderboard/${email.current.value}`)
+
     };
     
 

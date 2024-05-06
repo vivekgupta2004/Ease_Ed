@@ -194,10 +194,21 @@ app.post("/enrollclass", async (req, res) => {
     await studentEnrolledmodel.updateOne({ classid: payloadclassid }, { $push: { score: scoreField } });
 
     res.json({
-        mssg: "Enrolled successfully!! time table added to a particular student database!!"
+        mssg: "Enrolled successfully!! time table added to a particular student database!!",
+        
     })
 })
 
+
+app.post("/gettimetable",async(req,res)=>{
+    const classid=req.body.classid;
+    console.log(classid)
+    const gotUser=await User.findOne({email:classid})
+    console.log(gotUser.classTimeTable)
+    res.json({
+        mssg:"Check the console!!"
+    })
+})
 
 
 app.post("/userupdatestatus", async (req, res) => {

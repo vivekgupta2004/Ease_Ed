@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Nav from './Nav'
 import Checkprogress from './Checkprogress'
 import CompletedLeaderboard from './CompletedLeaderboard'
 import PendingLeaderboard from './PendingLeaderboard'
 import IncompleteLeaderboard from './IncompleteLeaderboard'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const Leaderboard = () => {
+  const {id}=useParams();
+
+  useEffect(()=>{
+    async function getData(){
+      const response= await axios.post("http://localhost:3000/gettimetable",{
+        classid:id
+      });
+      console.log(response.data);
+    }
+    getData();
+  },[])
   return (
     <div className='text-white'>
       <Nav />
