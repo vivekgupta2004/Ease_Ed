@@ -9,7 +9,6 @@ const EnrolledClass = () => {
     const classid = useRef(null);
     const navigate=useNavigate();
 
-
     const handleSubmit=async (e)=>{
       e.preventDefault();
       const response = await axios.post("http://localhost:3000/enrollclass",{

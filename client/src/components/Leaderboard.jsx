@@ -6,13 +6,24 @@ import PendingLeaderboard from './PendingLeaderboard'
 import IncompleteLeaderboard from './IncompleteLeaderboard'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-
 const Leaderboard = () => {
   let values=[];
   let status1=[];
   let status1Title=[];
   let status0=[];
   let status0Title=[];
+
+  function parseJwt(token){
+    const [header,payload,signature]=token.split('.')
+    const decodedPayload=atob(payload);
+    const parsedPayload=JSON.parse(decodedPayload);
+    return parsedPayload;
+  }
+
+  const logedUserToken=localStorage.getItem('token');
+  const logedEmail=(parseJwt(logedUserToken)).email;
+
+  
   const {id}=useParams();
   const [status1Todo,setStatus1Todo]=useState([]);
   const [status0Todo,setStatus0Todo]=useState([]);

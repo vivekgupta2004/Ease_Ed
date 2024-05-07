@@ -5,6 +5,18 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import Home from './Home';
 const Nav = () => {
   let [flag,setFlag]=useState(false);
+
+
+  function parseJwt(token){
+    const [header,payload,signature]=token.split('.')
+    const decodedPayload=atob(payload);
+    const parsedPayload=JSON.parse(decodedPayload);
+    return parsedPayload;
+  }
+
+  const logedUserToken=localStorage.getItem('token');
+  const logedEmail=(parseJwt(logedUserToken)).email;
+
   return (
     <div className='absolute w-screen z-20'>
       <div className=" flex justify-center h-24 w-screen ">
@@ -15,7 +27,7 @@ const Nav = () => {
           <div className="">
             <ul className='flex space-x-16 '>
               <NavLink to="/" className='cursor-pointer hidden md:block'>Home</NavLink>
-              <NavLink to="/leaderboard" className='cursor-pointer hidden md:block'>LeaderBoard</NavLink>
+              <NavLink to={`/leaderboard/${logedEmail}`} className='cursor-pointer hidden md:block'>LeaderBoard</NavLink>
               <NavLink to='/timetable' className='cursor-pointer hidden md:block'>TimeTable</NavLink>
             </ul>
 
