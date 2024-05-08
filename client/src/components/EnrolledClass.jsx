@@ -31,12 +31,12 @@ const EnrolledClass = () => {
 
                 <div className='flex flex-col   w-2/6 gap-9 '>
                     
-                    <label className='text-3xl'>Email</label>
-                    <input ref={email} placeholder='Enter your Email' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent  ' />
-                    <label className='text-3xl'>Class Id</label>
-                    <input ref={classid} placeholder='Enter your class id' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent ' />
+                    <label className='text-3xl text-white'>Email</label>
+                    <input ref={email} placeholder='Enter your Email' className='text-2xl text-white rounded-2xl p-4 border-2 border-solid border-white bg-transparent  ' />
+                    <label className='text-3xl text-white'>Class Id</label>
+                    <input ref={classid}  placeholder='Enter your class id' className='text-2xl text-white rounded-2xl p-4 border-2 border-solid border-white bg-transparent ' />
 
-                    <button className='border-2 border-solid border-white  w-28 text-2xl rounded-2xl p-2 flex justify-center ' type='submit' >Sign Up</button>
+                    <button className='text-white border-2 border-solid border-white  w-28 text-2xl rounded-2xl p-2 flex justify-center ' type='submit' >Enroll</button>
                 </div>
                 <img src="/signin.png" alt="signup" />
 
