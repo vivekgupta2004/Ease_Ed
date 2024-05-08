@@ -104,7 +104,8 @@ app.post("/loginsuperuser", async (req, res) => {
 app.post("/addClass", async (req, res) => {
     const addClassPayload = req.body;
     const addClassParsedPayload = addClassVerification.safeParse(addClassPayload);
-
+    const parsedTitle=req.body.title;
+    console.log(parsedTitle);
     console.log(addClassParsedPayload);
     if (!addClassParsedPayload.success) {
         res.json({
@@ -115,6 +116,8 @@ app.post("/addClass", async (req, res) => {
     else {
 
         const classId = uuidv4();
+
+        
         const dumyData = {
             0: {
                 title: "Go to Gym!!",
