@@ -3,6 +3,7 @@ import Nav from './Nav'
 import { Footer } from './Footer'
 
 import Modal from './Model'
+import { useNavigate } from 'react-router-dom'
 
 const Classes = () => {
     const [showModal, setShowModal] = useState(false);
@@ -10,9 +11,8 @@ const Classes = () => {
         return setShowModal(false)
     }
     
- 
-    const [responseData, setResponseData] = useState(null); 
-    
+
+
     return (
         <div className='bg-[url(/Ellipse13.png)] bg-right-bottom bg-contain bg-opacity-10  bg-no-repeat' >
             <Nav />
@@ -35,13 +35,13 @@ const Classes = () => {
                     </button>
                 </div>
                 <div className='flex justify-center pt-20 ' >
-                    <button className=' text-white text-2xl border-4 border-solid border-white px-12 py-4 rounded-xl' onClick={() => setShowModal(true)}> ADD NEW CLASS + </button>
+                    <button className=' text-white text-2xl border-4 border-solid border-white px-12 py-4 rounded-xl' onClick={() => {setShowModal(true)}}> ADD NEW CLASS + </button>
                 </div>
                 
             </div>
 
             {showModal && <Modal closeModal={closeModal} />}
-             {responseData ? <h1>{responseData}</h1> : <h1>Class Id will appear here:</h1>} 
+              
             <Footer />
 
         </div>
