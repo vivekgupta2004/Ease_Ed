@@ -11,7 +11,7 @@ const Classes = () => {
         return setShowModal(false)
     }
     
-
+    
 
     return (
         <div className='bg-[url(/Ellipse13.png)] bg-right-bottom bg-contain bg-opacity-10  bg-no-repeat' >
@@ -36,6 +36,7 @@ const Classes = () => {
                 </div>
                 <div className='flex justify-center pt-20 ' >
                     <button className=' text-white text-2xl border-4 border-solid border-white px-12 py-4 rounded-xl' onClick={() => {setShowModal(true)}}> ADD NEW CLASS + </button>
+                    <button className=' text-white text-2xl border-4 border-solid border-white px-12 py-4 rounded-xl ml-10' onClick={() => {setShowModal(true)}}> ADD existing CLASS + </button>
                 </div>
                 
             </div>

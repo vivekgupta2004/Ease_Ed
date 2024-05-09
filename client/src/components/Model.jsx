@@ -19,7 +19,10 @@ const Modal = ({ closeModal }) => {
         }
         )
         console.log(email.current.value)
+        
         setResponseData(response.data.classId)
+
+        localStorage.setItem("justCreatedClass",response.data.classId);
     }
 
     return (

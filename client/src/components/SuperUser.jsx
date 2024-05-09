@@ -1,13 +1,13 @@
 import React, { useRef } from 'react'
 import Nav from './Nav'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Footer } from './Footer'
 import axios from 'axios'
 const SuperUser = () => {
     const email = useRef(null);
     const username = useRef(null);
     const password = useRef(null);
-
+    const navigate=useNavigate();
     async function handleSubmit(event) {
         event.preventDefault();
         const response = await axios.post("http://localhost:3000/loginsuperuser", {
@@ -15,7 +15,10 @@ const SuperUser = () => {
             email: email.current.value,
             password: password.current.value
         })
-        console.log(response);
+        console.log(response.data.token);
+
+        localStorage.setItem('superToken',response.data.token);
+        navigate('/')
     }
     return (
         <div className='text-white'>

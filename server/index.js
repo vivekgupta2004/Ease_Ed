@@ -12,6 +12,7 @@ const cors = require('cors');
 const path = require('path');
 const { default: mongoose } = require("mongoose");
 const { Files } = require("./model/filemodel.js");
+const { classTimeTableModel } = require("./model/classTimeTable.js");
  
 
 const app = express();
@@ -86,15 +87,19 @@ app.post("/loginsuperuser", async (req, res) => {
         }
         else {
             console.log("User Created successfull!!")
+            const token=jwt.sign({email:parsedPayload.data.email},"shhhh");
+            console.log(token);
             await SuperUser.create([{
                 email: parsedPayload.data.email,
                 username: parsedPayload.data.username,
                 password: parsedPayload.data.password,
             }])
+            res.status(200).json({
+                mssg: "Collection created successfully for superlogin!!",
+                token:token
+            })
         }
-        res.status(200).json({
-            mssg: "Collection created successfully for superlogin!!"
-        })
+
     }
 })
 
@@ -104,8 +109,6 @@ app.post("/loginsuperuser", async (req, res) => {
 app.post("/addClass", async (req, res) => {
     const addClassPayload = req.body;
     const addClassParsedPayload = addClassVerification.safeParse(addClassPayload);
-    const parsedTitle=req.body.title;
-    console.log(parsedTitle);
     console.log(addClassParsedPayload);
     if (!addClassParsedPayload.success) {
         res.json({
@@ -116,47 +119,16 @@ app.post("/addClass", async (req, res) => {
     else {
 
         const classId = uuidv4();
-
-        
-        const dumyData = {
-            0: {
-                title: "Go to Gym!!",
-                status: 0
-            },
-            1: {
-                title: "Go to Gym!!",
-                status: 0
-            },
-            2: {
-                title: "Go to Gym!!",
-                status: 0
-            },
-            3: {
-                title: "Go to Gym!!",
-                status: 0
-            },
-            4: {
-                title: "Go to Gym!!",
-                status: 0
-            },
-            5: {
-                title: "Go to Gym!!",
-                status: 0
-            },
-            6: {
-                title: "Go to Gym!!",
-                status: 0
-            },
-        }
         console.log(classId);
-
+        // Do a post req on the classTimeTable model in the db and get the timetable and send it to the classtimetable
         const classData = {
             className: addClassParsedPayload.data.className,
             accessGrant: addClassParsedPayload.data.accessGrant,
             classid: classId,
-            classtimetable: dumyData
+            classtimetable: null
         }
         await SuperUser.updateOne({ email: addClassParsedPayload.data.email }, { $push: { classes: classData } });
+        await classTimeTableModel.create({classid:classId,classTimeTable:[]})
 
         await studentEnrolledmodel.create({
             classid: classId
@@ -173,7 +145,12 @@ app.post("/addClass", async (req, res) => {
 })
 
 
-
+app.post('/uploadtimetable',async (req,res)=>{
+    const title=req.body.title;
+    const classid=req.body.classid;
+    const timeSlot=req.body.timeslot;
+    await classTimeTableModel.updateOne({classid:classid},{ $push: {classTimeTable:{title:title,status:0,timeSlot:timeSlot}}})
+})
 app.post("/enrollclass", async (req, res) => {
     const payloadclassid = req.body.classid;
     const payloademail = req.body.email;
