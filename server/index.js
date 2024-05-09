@@ -291,6 +291,16 @@ app.post("/navigateTeacher", async(req,res)=>{
 
 
 
+app.post('/alottimetable',async(req,res)=>{
+    const classid=req.body.classid;
+    const temp=await classTimeTableModel.find({classid:classid});
+    console.log(temp[0].classTimeTable);
+    res.json({timeSlot:temp[0].classTimeTable})
+
+    //alg alg entry bnakke timeslot ko check kro aur usko ui pe render krwaaa.
+
+})
+
 app.post("/getStudent", async (req, res) => {
     //class id should be set to a spacific button is click than we should getted backend
 
