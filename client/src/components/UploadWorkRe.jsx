@@ -3,6 +3,7 @@ import Nav from './Nav'
 import { GoAlertFill } from "react-icons/go";
 import { MdOutlineFileUpload } from "react-icons/md";
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 function UploadWorkRe() {
     const title = useRef(null);
     const firstInput=useRef([0,1]);
@@ -15,7 +16,11 @@ function UploadWorkRe() {
             timeslot:firstInput.current.value
         })
         console.log(response)
+
     }
+
+    const {classid}= useParams();
+    console.log(classid);
 
 
     return (

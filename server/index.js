@@ -13,7 +13,7 @@ const path = require('path');
 const { default: mongoose } = require("mongoose");
 const { Files } = require("./model/filemodel.js");
 const { classTimeTableModel } = require("./model/classTimeTable.js");
- 
+
 
 const app = express();
 
@@ -87,7 +87,7 @@ app.post("/loginsuperuser", async (req, res) => {
         }
         else {
             console.log("User Created successfull!!")
-            const token=jwt.sign({email:parsedPayload.data.email},"shhhh");
+            const token = jwt.sign({ email: parsedPayload.data.email }, "shhhh");
             console.log(token);
             await SuperUser.create([{
                 email: parsedPayload.data.email,
@@ -96,7 +96,7 @@ app.post("/loginsuperuser", async (req, res) => {
             }])
             res.status(200).json({
                 mssg: "Collection created successfully for superlogin!!",
-                token:token
+                token: token
             })
         }
 
@@ -128,7 +128,7 @@ app.post("/addClass", async (req, res) => {
             classtimetable: null
         }
         await SuperUser.updateOne({ email: addClassParsedPayload.data.email }, { $push: { classes: classData } });
-        await classTimeTableModel.create({classid:classId,classTimeTable:[]})
+        await classTimeTableModel.create({ classid: classId, classTimeTable: [] })
 
         await studentEnrolledmodel.create({
             classid: classId
@@ -145,11 +145,11 @@ app.post("/addClass", async (req, res) => {
 })
 
 
-app.post('/uploadtimetable',async (req,res)=>{
-    const title=req.body.title;
-    const classid=req.body.classid;
-    const timeSlot=req.body.timeslot;
-    await classTimeTableModel.updateOne({classid:classid},{ $push: {classTimeTable:{title:title,status:0,timeSlot:timeSlot}}})
+app.post('/uploadtimetable', async (req, res) => {
+    const title = req.body.title;
+    const classid = req.body.classid;
+    const timeSlot = req.body.timeslot;
+    await classTimeTableModel.updateOne({ classid: classid }, { $push: { classTimeTable: { title: title, status: 0, timeSlot: timeSlot } } })
 })
 app.post("/enrollclass", async (req, res) => {
     const payloadclassid = req.body.classid;
@@ -160,7 +160,7 @@ app.post("/enrollclass", async (req, res) => {
             return c.classtimetable;
         }
     })
-    
+
     await User.updateOne({ email: payloademail }, { classTimeTable: timetableobj[5] });
 
     await studentEnrolledmodel.updateOne({ classid: payloadclassid }, { $push: { studentsInThisClass: payloademail } })
@@ -175,17 +175,17 @@ app.post("/enrollclass", async (req, res) => {
 
     res.json({
         mssg: "Enrolled successfully!! time table added to a particular student database!!",
-        
+
     })
 })
 
 
-app.post("/gettimetable",async(req,res)=>{
-    const classid=req.body.classid;
+app.post("/gettimetable", async (req, res) => {
+    const classid = req.body.classid;
     console.log(classid)
-    const gotUser=await User.findOne({email:classid})
+    const gotUser = await User.findOne({ email: classid })
     res.json({
-        timetable:gotUser.classTimeTable
+        timetable: gotUser.classTimeTable
     })
 })
 
@@ -209,7 +209,7 @@ app.post("/userupdatestatus", async (req, res) => {
 
 app.get('/leaderboard', async (req, res) => {
     res.json({
-        mssg:"Leaderboard is pending!!"
+        mssg: "Leaderboard is pending!!"
     })
 })
 const storage = multer.diskStorage({
@@ -218,57 +218,93 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now();
-        cb(null, uniqueSuffix+"." + file.originalname)
+        cb(null, uniqueSuffix + "." + file.originalname)
     }
 })
 
 const upload = multer({ storage: storage })
-app.post('/uploadfiles',upload.single('file'), async(req, res) => {
-    const title =  req.body.title;
+app.post('/uploadfiles', upload.single('file'), async (req, res) => {
+    const title = req.body.title;
     const fileName = req.file.filename;
-    const token=req.header.token;
+    const token = req.header.token;
     await Files.create({
         title,
-        pdf:fileName,
-        token:token
+        pdf: fileName,
+        token: token
     })
- res.json({mess: "file upload"})
+    res.json({ mess: "file upload" })
 })
 
 
-app.post("/getfiles",async(req,res)=>{
-    const email=req.body.email;
-    const classesTeacherEnrolled= await SuperUser.find({email:email});
+app.post("/getfiles", async (req, res) => {
+    const email = req.body.email;
+    const classesTeacherEnrolled = await SuperUser.find({ email: email });
 
     console.log(classesTeacherEnrolled);
-    let classesTeacherEnrolledFinal=(classesTeacherEnrolled[0].classes).map((obj)=>obj.className);
+    let classesTeacherEnrolledFinal = (classesTeacherEnrolled[0].classes).map((obj) => obj.className);
     console.log(classesTeacherEnrolledFinal)
 
     res.json({
-        mssg:"Classes found",
-        classes:classesTeacherEnrolledFinal
+        mssg: "Classes found",
+        classes: classesTeacherEnrolledFinal
     })
 
 
 
+
+})
+
+
+app.post("/classRender", async (req, res) => {
+    const email = req.body.email
+    const FindSuperUser = await SuperUser.find({ email: email });
+    const classes = FindSuperUser[0].classes
+    const classTitle = classes.map((item, index) => {
+        return item.className
+    })
+    console.log(classTitle)
+    console.log(classes)
+
+
+
+
+
+    res.send(classTitle)
+    
+
+
+
+})
+
+app.post("/navigateTeacher", async(req,res)=>{
+    const className = req.body.className
+    const navigateTeacher = await  SuperUser.find({"classes.className":className})
+    const navigationClass = navigateTeacher[0].classes .map((item,index)=>{
+        if(className==item.className){
+            res.json({classid:item.classid})
+            console.log(item.classid)
+            
+        }
+    })
+    
 })
 
 
 
-app.post("/getStudent",async(req,res)=>{
-//class id should be set to a spacific button is click than we should getted backend
+app.post("/getStudent", async (req, res) => {
+    //class id should be set to a spacific button is click than we should getted backend
 
-const classId = req.body.classId;
-const gotStudent= await studentEnrolledmodel.find({classid:classId});
+    const classId = req.body.classId;
+    const gotStudent = await studentEnrolledmodel.find({ classid: classId });
 
-const gotStudentFinal=gotStudent[0].studentsInThisClass;
+    const gotStudentFinal = gotStudent[0].studentsInThisClass;
 
 
 
-res.json({
-    mssg:"Done!!",
-    gotStudentFinal
-})
+    res.json({
+        mssg: "Done!!",
+        gotStudentFinal
+    })
 })
 connectDB()
     .then(() => {

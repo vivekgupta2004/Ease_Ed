@@ -21,7 +21,7 @@ const Routing = () => {
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/classes' element={<Classes/>} />
-        <Route path='/uploadwork' element={<UploadWorkRe/>} />
+        <Route path='/uploadwork/:classid' element={<UploadWorkRe/>} />
         <Route path='/superuser' element={<SuperUser/>} />
         <Route path='/enrollclass' element={<EnrolledClass/>} />
       </Routes>

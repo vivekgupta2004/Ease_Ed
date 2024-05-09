@@ -61,8 +61,8 @@ const Leaderboard = () => {
 
           <div id="parentContainer" className='w-full h-fit flex items-center justify-center gap-10 flex-col p-5'>
             {/* <CompletedLeaderboard/>
-            <PendingLeaderboard/>
             <IncompleteLeaderboard/> */}
+            {/* <PendingLeaderboard/> */}
 
             {status0Todo ? status0Todo.map((item,index)=><PendingLeaderboard title={item}/>):<h1>Loading...</h1>}
             {status1Todo ? status1Todo.map((item,index)=><CompletedLeaderboard title={item}/>):<h1>Loading...</h1>}
