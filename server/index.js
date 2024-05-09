@@ -294,8 +294,15 @@ app.post("/navigateTeacher", async(req,res)=>{
 app.post('/alottimetable',async(req,res)=>{
     const classid=req.body.classid;
     const temp=await classTimeTableModel.find({classid:classid});
-    console.log(temp[0].classTimeTable);
-    res.json({timeSlot:temp[0].classTimeTable})
+    const timeslot = temp[0].classTimeTable
+    
+    console.log(timeslot);
+  
+     const timeSlotArray = timeslot.map((item)=>{
+         return item.timeSlot
+    })
+    console.log(timeSlotArray); 
+     res.json({timeSlot:timeSlotArray})
 
     //alg alg entry bnakke timeslot ko check kro aur usko ui pe render krwaaa.
 
