@@ -11,19 +11,30 @@ import axios from 'axios'
 
 const PendingLeaderboard = ({ title,timeslot }) => {
   const [file, setFile] = useState();
+  function parseJwt(token){
+    const [header,payload,signature]=token.split('.')
+    const decodedPayload=atob(payload);
+    const parsedPayload=JSON.parse(decodedPayload);
+    return parsedPayload;
+  }
 
+  const logedUserToken=localStorage.getItem('token');
+  const logedEmail=(parseJwt(logedUserToken)).email;
   const handleSubmit = async (e) => {
-
+    
     e.preventDefault();
     const formData = new FormData();
-  
+    
     formData.append("file", file);
-    console.log(title, file)
+    const email=logedEmail;
     const result = await axios.post("http://localhost:3000/uploadfiles", formData, {
-      Headers: { "Content-Type": "multipart/form-data" }
+      Headers: { "Content-Type": "multipart/form-data" },
+      params:{email:email}
     })
-  
-    console.log(result);
+    // const result =await axios.post("http://localhost:3000/uploadfiles",{
+    //   email:logedEmail,
+    //   fileName:file1
+    // })
   }
   return (
     <div className='w-full flex gap-64 items-center'>

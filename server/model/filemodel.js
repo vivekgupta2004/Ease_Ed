@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const fileSchema = new mongoose.Schema({
-    title: {
-        type: String
+    title:{
+        type:[String]
     },
-    pdf: {
-        type: String,
+    email:{
+        type:String
     },
-    token:{
+    classid:{
         type:String
     }
 

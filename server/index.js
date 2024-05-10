@@ -176,6 +176,10 @@ app.post("/enrollclass", async (req, res) => {
 
     await studentEnrolledmodel.updateOne({ classid: payloadclassid }, { $push: { studentsInThisClass: payloademail } })
 
+    await Files.create({title:[],email:payloademail,classid:payloadclassid});
+
+
+
     const scoreField = {
         email: payloademail,
         scoreOfThisStudent: 0
@@ -237,15 +241,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 app.post('/uploadfiles', upload.single('file'), async (req, res) => {
-    const title = req.body.title;
     const fileName = req.file.filename;
-    const token = req.header.token;
-    await Files.create({
-        title,
-        pdf: fileName,
-        token: token
-    })
-    res.json({ mess: "file upload" })
+    console.log("From the file name"+fileName)
+    const email=req.query.email;
+    const response=await Files.updateOne({email:email},{$push:{title:fileName}})
+    console.log(response)
+    console.log(email)
 })
 
 
@@ -265,6 +266,10 @@ app.post("/getfiles", async (req, res) => {
 
 
 
+})
+
+app.post("/gotfiles", async(req,res)=>{
+    const filename = await Files.find()
 })
 
 
