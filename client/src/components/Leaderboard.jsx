@@ -81,11 +81,8 @@ const Leaderboard = () => {
             {gotdata ?
               gotdata.map((item, index) => {
                 if(!item[2]){
-<<<<<<< HEAD
                   return <PendingLeaderboard key={index} timeslot={item[1]} title={item[0] } status={index}  />
-=======
-                  return <PendingLeaderboard key={index} timeslot={item[1]} title={item[0]} />
->>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
+                  
                 }
                 else{
                   return <CompletedLeaderboard key={index} timeslot={item[1]} title={item[0]}/>
