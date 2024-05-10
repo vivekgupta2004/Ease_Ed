@@ -9,21 +9,46 @@ import axios from 'axios'
 
 
 
-const PendingLeaderboard = ({ title }) => {
+const PendingLeaderboard = ({ title, timeslot, status }) => {
+  let count = 0
+  /*  console.log(status); */
   const [file, setFile] = useState();
+  function parseJwt(token) {
+    const [header, payload, signature] = token.split('.')
+    const decodedPayload = atob(payload);
+    const parsedPayload = JSON.parse(decodedPayload);
+    return parsedPayload;
+  }
 
+  const logedUserToken = localStorage.getItem('token');
+  const logedEmail = (parseJwt(logedUserToken)).email;
   const handleSubmit = async (e) => {
-
+    /*  console.log(status) */
+   
+    /*  console.log(response) */
     e.preventDefault();
+    const response = await axios.post("http://localhost:3000/userupdatestatus", {
+      id: status,
+      token:logedUserToken
+
+
+    })
     const formData = new FormData();
   
     formData.append("file", file);
-    console.log(title, file)
+    const email = logedEmail;
     const result = await axios.post("http://localhost:3000/uploadfiles", formData, {
-      Headers: { "Content-Type": "multipart/form-data" }
+      Headers: { "Content-Type": "multipart/form-data" },
+      params: { email: email }
     })
-  
-    console.log(result);
+    // const result =await axios.post("http://localhost:3000/uploadfiles",{
+    //   email:logedEmail,
+    //   fileName:file1
+    // })
+
+
+
+
   }
   return (
     <div className='w-full flex gap-64 items-center'>
@@ -32,7 +57,7 @@ const PendingLeaderboard = ({ title }) => {
           <h1 className='text-3xl tracking-wide font-light'>{title}</h1>
           <p className='mt-1 font-semibold ml-1'>Pending</p>
         </div>
-        <p className='font-semibold mt-2'>12:00-1:00</p>
+        <p className='font-semibold mt-2'>{timeslot}</p>
       </div>
       <form onSubmit={handleSubmit} className='flex items-center'>
         <input className='cursor-pointer' accept="application/pdf" type="file" required
@@ -40,7 +65,7 @@ const PendingLeaderboard = ({ title }) => {
         />
 
 
-        <button type='submit' className='h-1/2 border px-5 py-3 rounded-full border-slate-500 flex items-center gap-4 font-semibold tracking-wide'>Upload <MdOutlineFileUpload className='scale-125' /></button>
+        <button /* count={count++} */ type='submit' className='h-1/2 border px-5 py-3 rounded-full border-slate-500 flex items-center gap-4 font-semibold tracking-wide'>Upload <MdOutlineFileUpload className='scale-125' /></button>
       </form>
     </div>
   )

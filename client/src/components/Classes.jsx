@@ -44,7 +44,7 @@ const Classes = () => {
         
     }
 
-
+     
 
     return (
         <div className='bg-[url(/Ellipse13.png)] bg-right-bottom bg-contain bg-opacity-10  bg-no-repeat' >

@@ -10,6 +10,7 @@ import Leaderboard2 from '../components/Leaderboard2'
 import SuperUser from '../components/SuperUser'
 import EnrolledClass from '../components/EnrolledClass'
 import UploadWorkRe from '../components/UploadWorkRe'
+import DisplayFiles from '../components/DisplayFiles'
 
 const Routing = () => {
   return (
@@ -24,6 +25,7 @@ const Routing = () => {
         <Route path='/uploadwork/:classid' element={<UploadWorkRe/>} />
         <Route path='/superuser' element={<SuperUser/>} />
         <Route path='/enrollclass' element={<EnrolledClass/>} />
+        <Route path='/displayfiles' element={<DisplayFiles/>} />
       </Routes>
     </div>
   )
