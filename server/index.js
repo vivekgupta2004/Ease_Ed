@@ -257,11 +257,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 app.post('/uploadfiles', upload.single('file'), async (req, res) => {
     const fileName = req.file.filename;
-    /*    console.log("From the file name"+fileName) */
+       console.log("From the file name"+fileName)
     const email = req.query.email;
     const response = await Files.updateOne({ email: email }, { $push: { title: fileName } })
-    /* console.log(response)
-    console.log(email) */
+    // console.log(response)
+    console.log(email)
 })
 
 
