@@ -149,7 +149,11 @@ app.post('/uploadtimetable', async (req, res) => {
     const title = req.body.title;
     const classid = req.body.classid;
     const timeSlot = req.body.timeslot;
-    await classTimeTableModel.updateOne({ classid: classid }, { $push: { classTimeTable: { title: title, status: 0, timeSlot: timeSlot } } })
+    console.log(title);
+    await classTimeTableModel.updateOne({ classid: classid }, { $push: { classTimeTable: { title: title, status: 0, timeSlot: timeSlot } } });
+    res.json({
+        mssg:"On click successfull uploadtimetable"
+    })
 })
 app.post("/enrollclass", async (req, res) => {
     const payloadclassid = req.body.classid;
