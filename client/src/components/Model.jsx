@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom'
 const Modal = ({ closeModal }) => {
     const [responseData, setResponseData] = useState(null); 
 
+ 
+    const classid = localStorage.getItem('justCreatedClass')
+
     const email = useRef(null)
     const accessGrant = useRef(null)
     const classname = useRef(null)
@@ -43,7 +46,7 @@ const Modal = ({ closeModal }) => {
                         <label className='text-2xl text-white'>Class Name</label>
                         <input ref={classname} placeholder='Enter your Class Name' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent ' />
 
-                        <button onClick={navigate('/uploadwork')} className='text-white border-2 border-solid border-white   text-2xl rounded-2xl p-2 flex justify-center ' type='submit'  >Add Class</button>
+                        <button onClick={navigate(`/uploadwork/ ${classid}`)} className='text-white border-2 border-solid border-white   text-2xl rounded-2xl p-2 flex justify-center ' type='submit'  >Add Class</button>
                     </div>
                 </div>
 

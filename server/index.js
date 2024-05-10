@@ -149,19 +149,30 @@ app.post('/uploadtimetable', async (req, res) => {
     const title = req.body.title;
     const classid = req.body.classid;
     const timeSlot = req.body.timeslot;
-    await classTimeTableModel.updateOne({ classid: classid }, { $push: { classTimeTable: { title: title, status: 0, timeSlot: timeSlot } } })
+    console.log(title);
+    await classTimeTableModel.updateOne({ classid: classid }, { $push: { classTimeTable: { title: title, status: 0, timeSlot: timeSlot } } });
+    res.json({
+        mssg:"On click successfull uploadtimetable"
+    })
 })
 app.post("/enrollclass", async (req, res) => {
     const payloadclassid = req.body.classid;
     const payloademail = req.body.email;
-    const temp = await SuperUser.findOne({ "classes.classid": payloadclassid });
-    const timetableobj = (temp.classes).map((c) => {
-        if (c.classid == payloadclassid) {
+    const temp = await classTimeTableModel.findOne({ classid: payloadclassid });
+    /* console.log(temp); */
+    const timetableobj = (temp.classTimeTable).map((c) => {
+        /* if (c.classid == payloadclassid) {
             return c.classtimetable;
-        }
+        } */
+        return (
+            [
+                c.title,c.timeSlot,c.status
+            ]
+        )
     })
+  
 
-    await User.updateOne({ email: payloademail }, { classTimeTable: timetableobj[5] });
+    await User.updateOne({ email: payloademail }, { classTimeTable: timetableobj });
 
     await studentEnrolledmodel.updateOne({ classid: payloadclassid }, { $push: { studentsInThisClass: payloademail } })
 
@@ -181,12 +192,14 @@ app.post("/enrollclass", async (req, res) => {
 
 
 app.post("/gettimetable", async (req, res) => {
-    const classid = req.body.classid;
-    console.log(classid)
-    const gotUser = await User.findOne({ email: classid })
+    const email = req.body.email;
+    console.log(email)
+    const gotUser = await User.findOne({ email: email })
+
+    
     res.json({
         timetable: gotUser.classTimeTable
-    })
+    }) 
 })
 
 

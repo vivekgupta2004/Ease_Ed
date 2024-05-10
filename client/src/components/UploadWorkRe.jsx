@@ -33,6 +33,8 @@ function UploadWorkRe() {
     let [flag23,setFlag23]=useState(1);
 
     const { classid } = useParams();
+  
+
     useEffect(() => {
         const getalottimetable = async () => {
             const response = await axios.post("http://localhost:3000/alottimetable", {
@@ -40,6 +42,7 @@ function UploadWorkRe() {
             })
             // setresdata(response.data);
             const temp=(response.data.timeSlot);
+            
             const temp1=temp.map((item)=>{
                 return(item.split(","))
             });
