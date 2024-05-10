@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useRef } from 'react'
 import { MdOutlineFileUpload } from "react-icons/md";
 
-const TimeSloat = ({ timeinterval,timematch }) => {
-    let flag=1;
+const TimeSloat = ({ timeinterval,timematch,flag,setFlag}) => {
+
     const title = useRef(null);
     const firstInput = useRef([0, 1]);
     const handleSubmit = async (e) => {
@@ -13,15 +13,16 @@ const TimeSloat = ({ timeinterval,timematch }) => {
             classid: localStorage.getItem('justCreatedClass'),
             timeslot: firstInput.current.value
         })
-         const temp = timeinterval.split("-")
-         const temp1 = temp[0].split(":")
-        
-         if(timematch==temp1[0]){
-            flag=0
-         }
-
 
     }
+    const temp = timeinterval.split("-")
+    const temp1 = (temp[0]).split(":")
+    timematch.map((item)=>{
+        if(item===temp1[0]){
+            setFlag(0)
+        }
+
+    })
 
     return (
         <div>
