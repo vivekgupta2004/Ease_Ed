@@ -9,7 +9,7 @@ import axios from 'axios'
 
 
 
-const PendingLeaderboard = ({ title }) => {
+const PendingLeaderboard = ({ title,timeslot }) => {
   const [file, setFile] = useState();
 
   const handleSubmit = async (e) => {
@@ -32,7 +32,7 @@ const PendingLeaderboard = ({ title }) => {
           <h1 className='text-3xl tracking-wide font-light'>{title}</h1>
           <p className='mt-1 font-semibold ml-1'>Pending</p>
         </div>
-        <p className='font-semibold mt-2'>12:00-1:00</p>
+        <p className='font-semibold mt-2'>{timeslot}</p>
       </div>
       <form onSubmit={handleSubmit} className='flex items-center'>
         <input className='cursor-pointer' accept="application/pdf" type="file" required
