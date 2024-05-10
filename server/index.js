@@ -152,7 +152,11 @@ app.post('/uploadtimetable', async (req, res) => {
     console.log(title);
     await classTimeTableModel.updateOne({ classid: classid }, { $push: { classTimeTable: { title: title, status: 0, timeSlot: timeSlot } } });
     res.json({
+<<<<<<< HEAD
         mssg: "On click successfull uploadtimetable"
+=======
+        mssg:"On click successfull uploadtimetable"
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
     })
 })
 app.post("/enrollclass", async (req, res) => {
@@ -166,17 +170,29 @@ app.post("/enrollclass", async (req, res) => {
         } */
         return (
             [
+<<<<<<< HEAD
                 c.title, c.timeSlot, c.status
+=======
+                c.title,c.timeSlot,c.status
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
             ]
         )
     })
+  
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
     await User.updateOne({ email: payloademail }, { classTimeTable: timetableobj });
 
     await studentEnrolledmodel.updateOne({ classid: payloadclassid }, { $push: { studentsInThisClass: payloademail } })
 
+<<<<<<< HEAD
     await Files.create({ title: [], email: payloademail, classid: payloadclassid });
+=======
+    await Files.create({title:[],email:payloademail,classid:payloadclassid});
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
 
 
 
@@ -200,10 +216,14 @@ app.post("/gettimetable", async (req, res) => {
     console.log(email)
     const gotUser = await User.findOne({ email: email })
 
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
     res.json({
         timetable: gotUser.classTimeTable
-    })
+    }) 
 })
 
 
@@ -258,11 +278,19 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 app.post('/uploadfiles', upload.single('file'), async (req, res) => {
     const fileName = req.file.filename;
+<<<<<<< HEAD
     /*    console.log("From the file name"+fileName) */
     const email = req.query.email;
     const response = await Files.updateOne({ email: email }, { $push: { title: fileName } })
     /* console.log(response)
     console.log(email) */
+=======
+    console.log("From the file name"+fileName)
+    const email=req.query.email;
+    const response=await Files.updateOne({email:email},{$push:{title:fileName}})
+    console.log(response)
+    console.log(email)
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
 })
 
 
@@ -284,7 +312,11 @@ app.post("/getfiles", async (req, res) => {
 
 })
 
+<<<<<<< HEAD
 app.post("/gotfiles", async (req, res) => {
+=======
+app.post("/gotfiles", async(req,res)=>{
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
     const filename = await Files.find()
 })
 

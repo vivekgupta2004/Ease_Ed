@@ -9,6 +9,7 @@ import axios from 'axios'
 
 
 
+<<<<<<< HEAD
 const PendingLeaderboard = ({ title, timeslot, status }) => {
   let count = 0
   /*  console.log(status); */
@@ -26,6 +27,21 @@ const PendingLeaderboard = ({ title, timeslot, status }) => {
     /*  console.log(status) */
    
     /*  console.log(response) */
+=======
+const PendingLeaderboard = ({ title,timeslot }) => {
+  const [file, setFile] = useState();
+  function parseJwt(token){
+    const [header,payload,signature]=token.split('.')
+    const decodedPayload=atob(payload);
+    const parsedPayload=JSON.parse(decodedPayload);
+    return parsedPayload;
+  }
+
+  const logedUserToken=localStorage.getItem('token');
+  const logedEmail=(parseJwt(logedUserToken)).email;
+  const handleSubmit = async (e) => {
+    
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
     e.preventDefault();
     const response = await axios.post("http://localhost:3000/userupdatestatus", {
       id: status,
@@ -34,21 +50,31 @@ const PendingLeaderboard = ({ title, timeslot, status }) => {
 
     })
     const formData = new FormData();
-  
+    
     formData.append("file", file);
+<<<<<<< HEAD
     const email = logedEmail;
     const result = await axios.post("http://localhost:3000/uploadfiles", formData, {
       Headers: { "Content-Type": "multipart/form-data" },
       params: { email: email }
+=======
+    const email=logedEmail;
+    const result = await axios.post("http://localhost:3000/uploadfiles", formData, {
+      Headers: { "Content-Type": "multipart/form-data" },
+      params:{email:email}
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
     })
     // const result =await axios.post("http://localhost:3000/uploadfiles",{
     //   email:logedEmail,
     //   fileName:file1
     // })
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 1a5d5b5381dacc5fcd23fa3349db0f77bdc9abd8
   }
   return (
     <div className='w-full flex gap-64 items-center'>
