@@ -152,7 +152,7 @@ app.post('/uploadtimetable', async (req, res) => {
     console.log(title);
     await classTimeTableModel.updateOne({ classid: classid }, { $push: { classTimeTable: { title: title, status: 0, timeSlot: timeSlot } } });
     res.json({
-        mssg:"On click successfull uploadtimetable"
+        mssg: "On click successfull uploadtimetable"
     })
 })
 app.post("/enrollclass", async (req, res) => {
@@ -166,7 +166,7 @@ app.post("/enrollclass", async (req, res) => {
         } */
         return (
             [
-                c.title,c.timeSlot,c.status
+                c.title, c.timeSlot, c.status
             ]
         )
     })
@@ -176,7 +176,7 @@ app.post("/enrollclass", async (req, res) => {
 
     await studentEnrolledmodel.updateOne({ classid: payloadclassid }, { $push: { studentsInThisClass: payloademail } })
 
-    await Files.create({title:[],email:payloademail,classid:payloadclassid});
+    await Files.create({ title: [], email: payloademail, classid: payloadclassid });
 
 
 
@@ -200,7 +200,6 @@ app.post("/gettimetable", async (req, res) => {
     console.log(email)
     const gotUser = await User.findOne({ email: email })
 
-    
     res.json({
         timetable: gotUser.classTimeTable
     }) 
@@ -208,16 +207,32 @@ app.post("/gettimetable", async (req, res) => {
 
 
 app.post("/userupdatestatus", async (req, res) => {
-    const buttonId = req.body.buttonid;
-    const studentToken = req.headers.token;
+    const buttonId = req.body.id;
+    const studentToken = req.body.token;
     console.log(studentToken)
     let temp = await User.find({ token: studentToken })
+    console.log(temp);
     const toBeUpdatedClassTimeTable = (temp[0].classTimeTable);
-    (toBeUpdatedClassTimeTable[`${buttonId}`].status) = 1;
-    await User.updateOne({ token: studentToken }, { classTimeTable: temp[0].classTimeTable })
+    console.log(toBeUpdatedClassTimeTable);
+    const uploadedArray = toBeUpdatedClassTimeTable.map((item, index) => {
+        if (index == buttonId) {
+            item[2] = 1
+            return item
+        }
+        else{
+            return item
+        }
+    })
+    
+   console.log(uploadedArray)
 
 
-    //Next work is in this route whenever the student want to mark anything done this must send a response to the teacher that work has been uploaded and teacher should send back the response of the number of points that is to be given to the user..
+    await User.updateOne({token:studentToken},{classTimeTable:uploadedArray})
+    //   (toBeUpdatedClassTimeTable[`${buttonId}`].status) = 1;
+    //  await User.updateOne({ token: studentToken }, { classTimeTable: temp[0].classTimeTable })
+
+
+    //  // //Next work is in this route whenever the student want to mark anything done this must send a response to the teacher that work has been uploaded and teacher should send back the response of the number of points that is to be given to the user..
 
     res.json({
         mssg: "Updated!!"
@@ -242,11 +257,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 app.post('/uploadfiles', upload.single('file'), async (req, res) => {
     const fileName = req.file.filename;
-    console.log("From the file name"+fileName)
-    const email=req.query.email;
-    const response=await Files.updateOne({email:email},{$push:{title:fileName}})
-    console.log(response)
-    console.log(email)
+    /*    console.log("From the file name"+fileName) */
+    const email = req.query.email;
+    const response = await Files.updateOne({ email: email }, { $push: { title: fileName } })
+    /* console.log(response)
+    console.log(email) */
 })
 
 
@@ -268,7 +283,7 @@ app.post("/getfiles", async (req, res) => {
 
 })
 
-app.post("/gotfiles", async(req,res)=>{
+app.post("/gotfiles", async (req, res) => {
     const filename = await Files.find()
 })
 
@@ -288,39 +303,76 @@ app.post("/classRender", async (req, res) => {
 
 
     res.send(classTitle)
-    
+
 
 
 
 })
 
-app.post("/navigateTeacher", async(req,res)=>{
+app.post("/navigateTeacher", async (req, res) => {
     const className = req.body.className
-    const navigateTeacher = await  SuperUser.find({"classes.className":className})
-    const navigationClass = navigateTeacher[0].classes .map((item,index)=>{
-        if(className==item.className){
-            res.json({classid:item.classid})
+    const navigateTeacher = await SuperUser.find({ "classes.className": className })
+    const navigationClass = navigateTeacher[0].classes.map((item, index) => {
+        if (className == item.className) {
+            res.json({ classid: item.classid })
             console.log(item.classid)
-            
+
         }
     })
-    
+
+})
+
+app.post("/viewFile", async (req, res) => {
+    const email = req.body.email;
+    const response = await SuperUser.find({ email: email });
+    const classesArray = response[0].classes;
+    console.log(response[0].classes);
+    const arrayId = classesArray.map((item, index) => {
+        return item.classid;
+    });
+
+    // Using Promise.all() to await all the asynchronous operations
+    const toSend = await Promise.all(arrayId.map(async (item, index) => {
+        const titleArray = await Files.find({ classid: item });
+        // Accessing titles of each file in titleArray
+        const titles = titleArray.map(file => {
+            return file.title; // Accessing title property of each file object
+        });
+        console.log(titles);
+        return titles; // Return titles to accumulate them for sending
+    }));
+
+
+
+    res.json({ mess: "hello",arr: toSend.flat()  }); // Flatten toSend array before sending
+});
+
+
+app.post("/handleUrl",async(req,res)=>{
+    const item = req.body.item
+    console.log(item);
+    res.redirect(`/${item}`)
+
 })
 
 
 
-app.post('/alottimetable',async(req,res)=>{
-    const classid=req.body.classid;
-    const temp=await classTimeTableModel.find({classid:classid});
-    const timeslot = temp[0].classTimeTable
-    
-    console.log(timeslot);
-  
-     const timeSlotArray = timeslot.map((item)=>{
-         return item.timeSlot
-    })
-    console.log(timeSlotArray); 
-     res.json({timeSlot:timeSlotArray})
+
+app.post('/alottimetable', async (req, res) => {
+    const classid = req.body.classid;
+    const temp = await classTimeTableModel.find({ classid: classid });
+    if (temp.length != 0) {
+        const timeslot = temp[0].classTimeTable
+
+        console.log(timeslot);
+
+        const timeSlotArray = timeslot.map((item) => {
+            return item.timeSlot
+        })
+        console.log(timeSlotArray);
+        res.json({ timeSlot: timeSlotArray })
+    }
+
 
     //alg alg entry bnakke timeslot ko check kro aur usko ui pe render krwaaa.
 
@@ -333,8 +385,6 @@ app.post("/getStudent", async (req, res) => {
     const gotStudent = await studentEnrolledmodel.find({ classid: classId });
 
     const gotStudentFinal = gotStudent[0].studentsInThisClass;
-
-
 
     res.json({
         mssg: "Done!!",
