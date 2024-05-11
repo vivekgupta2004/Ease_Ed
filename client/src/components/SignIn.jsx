@@ -26,8 +26,8 @@ const SignIn = () => {
             <Nav />
             <div className="pt-36 flex justify-center items-center ">
                 <div className="bg-[#2C2C51] w-96 h-20 flex justify-center items-center gap-16 rounded-full ">
-                    <Link to='/signin' className=" px-11 py-4 bg-[#0D0C1A] rounded-full text-2xl cursor-pointer ">SignIn</Link>
-                    <Link to='/signup' className="text-2xl cursor-pointer">SignUp</Link>
+                    <Link to='/signin' className=" px-11 py-4 bg-[#0D0C1A] rounded-full text-2xl cursor-pointer ">SignUp</Link>
+                    <Link to='/signup' className="text-2xl cursor-pointer">SignIn</Link>
                 </div>
             </div>
             <form onSubmit={handleSubmit} action="" className=" flex  justify-evenly mt-28 pb-12 bg-[url(/aboutEllipse.png)] ">

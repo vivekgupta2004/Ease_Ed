@@ -27,16 +27,25 @@ const Nav = () => {
           <div className="">
             <ul className='flex space-x-16 '>
               <NavLink to="/" className='cursor-pointer hidden md:block'>Home</NavLink>
-              <NavLink to={`/leaderboard/${logedEmail}`} className='cursor-pointer hidden md:block'>LeaderBoard</NavLink>
-              <NavLink to='/timetable' className='cursor-pointer hidden md:block'>TimeTable</NavLink>
+              <NavLink to={`/leaderboard/${logedEmail}`} className='cursor-pointer hidden md:block'>Progress</NavLink>
+        
+              <NavLink to='/classes' className='cursor-pointer hidden md:block'>AddClasses</NavLink>
+              <NavLink to='/enrollclass' className='cursor-pointer hidden md:block'>EnrollClass</NavLink>
+              <NavLink to='/timetable' className='cursor-pointer hidden md:block'>LeaderBoard</NavLink>
+              <NavLink to='/displayfiles' className='cursor-pointer hidden md:block'>Display</NavLink>
             </ul>
 
           </div>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center gap-3">
 
             <ul className='w-52 h-12 border-2 border-solid border-white rounded-2xl flex justify-center items-center opacity-0 md:opacity-100'>
 
               <NavLink to='/signin' className='cursor-pointer '>Login</NavLink>
+            </ul>
+
+            <ul className='w-52 h-12 border-2 border-solid border-white rounded-2xl flex justify-center items-center opacity-0 md:opacity-100'>
+
+              <NavLink to='/superuser' className='cursor-pointer '>LoginTeacher</NavLink>
             </ul>
 
             {flag ? <RxCross1 className='md:hidden text-3xl z-10' onClick={()=>setFlag(prev=>!prev)} />:<RxHamburgerMenu className='md:hidden text-3xl z-10' onClick={()=>setFlag(prev=>!prev)}/>}

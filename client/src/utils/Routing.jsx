@@ -9,8 +9,8 @@ import Classes from '../components/Classes'
 import Leaderboard2 from '../components/Leaderboard2'
 import SuperUser from '../components/SuperUser'
 import EnrolledClass from '../components/EnrolledClass'
-import UploadWorkRe from '../components/UploadWorkRe'
 import DisplayFiles from '../components/DisplayFiles'
+import LoginSuper from '../components/LoginSuper'
 
 const Routing = () => {
   return (
@@ -22,10 +22,11 @@ const Routing = () => {
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/classes' element={<Classes/>} />
-        <Route path='/uploadwork/:classid' element={<UploadWorkRe/>} />
+        <Route path='/uploadwork/:classid' element={<UploadWork/>} />
         <Route path='/superuser' element={<SuperUser/>} />
         <Route path='/enrollclass' element={<EnrolledClass/>} />
         <Route path='/displayfiles' element={<DisplayFiles/>} />
+        <Route path='/loginsuper' element={<LoginSuper/>} />
       </Routes>
     </div>
   )
