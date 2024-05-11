@@ -3,7 +3,7 @@ import Nav from './Nav'
 import { Footer } from './Footer'
 import { Link } from 'react-router-dom'
 
-const SignUp = () => {
+const LoginSuper = () => {
     return (
         <div className='text-white'>
             <Nav />
@@ -16,7 +16,7 @@ const SignUp = () => {
             <form action="" className=" flex  justify-evenly mt-28 pb-12 bg-[url(/aboutEllipse.png)]">
 
                 <div className='flex flex-col   w-2/6 gap-9 '>
-                    <p className='text-5xl mb-5'>Teacher </p>
+                    <p className='text-5xl mb-5'>HELLO<br></br> KIDDO!</p>
                     <label className='text-3xl'>Email</label>
                     <input placeholder='Enter your Email' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent  ' />
                     <label className='text-3xl'>Password</label>
@@ -36,4 +36,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default LoginSuper
