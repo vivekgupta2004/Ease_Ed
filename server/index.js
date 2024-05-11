@@ -336,7 +336,7 @@ app.post("/viewFile", async (req, res) => {
         const titleArray = await Files.find({ classid: item });
         // Accessing titles of each file in titleArray
         const titles = titleArray.map(file => {
-            return file.title; // Accessing title property of each file object
+            return file.title // Accessing title property of each file object
         });
         console.log(titles);
         return titles; // Return titles to accumulate them for sending

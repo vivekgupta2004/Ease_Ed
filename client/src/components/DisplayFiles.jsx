@@ -19,7 +19,8 @@ const DisplayFiles = () => {
       const response=await axios.post("http://localhost:3000/viewFile",{
         email:logedEmail,
     })
-    console.log(response.data)
+    
+
     settoBeMapped(response.data.arr);
 
     }
@@ -41,7 +42,12 @@ const DisplayFiles = () => {
     toBeMapped.length &&    <div className='text-white flex gap-10 h-screen flex-col items-center'>
     <h1>Jai shri Ram!!</h1>
       {toBeMapped.map((item,index)=>{
-       return item.map((innerItem)=><button onClick={()=>handleInput(innerItem)} className='bg-slate-500 w-fit' key={index}>{innerItem}</button>)
+       return(
+        <>
+        <h1 className='text-white'>he </h1>
+        {item.map((innerItem)=><button onClick={()=>handleInput(innerItem)} className='bg-slate-500 w-fit' key={index}>{innerItem}</button>)}
+        </>
+       )
       })}
   </div>
   )
