@@ -103,9 +103,6 @@ app.post("/loginsuperuser", async (req, res) => {
     }
 })
 
-
-
-
 app.post("/addClass", async (req, res) => {
     const addClassPayload = req.body;
     const addClassParsedPayload = addClassVerification.safeParse(addClassPayload);

@@ -35,11 +35,11 @@ const SignIn = () => {
                 <div className='flex flex-col   w-2/6 gap-9 '>
                     <p className='text-5xl mb-5'>HELLO<br></br> KIDDO!</p>
                     <label className='text-3xl'>Username</label>
-                    <input ref={username} placeholder='Enter your Username' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent  ' />
+                    <input ref={username} placeholder='Enter your Username' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent  ' required />
                     <label className='text-3xl'>Email</label>
-                    <input ref={email} placeholder='Enter your Email' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent  ' />
+                    <input ref={email} placeholder='Enter your Email' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent  ' required />
                     <label className='text-3xl'>Password</label>
-                    <input ref={password} placeholder='Enter your Password' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent ' />
+                    <input ref={password} placeholder='Enter your Password' className='text-2xl rounded-2xl p-4 border-2 border-solid border-white bg-transparent ' required />
 
                     <button className='border-2 border-solid border-white  w-28 text-2xl rounded-2xl p-2 flex justify-center ' type='submit' >Sign In</button>
                 </div>

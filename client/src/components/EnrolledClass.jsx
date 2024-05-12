@@ -21,9 +21,6 @@ const EnrolledClass = () => {
 
     };
     
-
-
-    
     return (
         <div className='p-1'>
             <Nav/>
