@@ -6,3 +6,7 @@ This is an application for helping out students and teachers to connect more and
 * Enhace the quality of learning.
 * Reduce burden on the Students.
 * Ease teachers to plan and know the state of the students.
+
+# add new line
+* i am learning to operate to git hub so i do practice on this project 
+
